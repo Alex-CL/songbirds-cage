@@ -1,0 +1,7 @@
+.genericTooltip {
+  background-color: rgb(var(--color-tooltip-background-RGB));
+}
+
+.genericTooltip > p {
+  color: var(--color-white);
+}
