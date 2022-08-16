@@ -3,6 +3,7 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 import './App.css'
 import { 
 	TablePagination,
+	Typography,
 	Button,	
 	Box, 
 	Icon,
@@ -46,6 +47,16 @@ function App() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [currentStep, setCurrentStep] = useState<number>(0)
     
+    const titleStyle = {
+    	fontSize: '2rem',
+    	fontWeight: 'bold',
+    	margin: '10px auto',
+	   	textAlign: 'center', 
+	   	background: 'linear-gradient(90deg, rgba(230,20,137,1) 0%, rgba(230,20,137,1) 45%, rgba(0,0,0,1) 100%)',
+	   	WebkitBackgroundClip: 'text',
+		WebkitTextFillColor: 'transparent'
+    }
+    
    // TODO Apply stepper
     return (
     	<SongbirdsProvider>
@@ -53,7 +64,7 @@ function App() {
 		    	width: '60%',
 		    	margin: 'auto'
 		    }}>
-		        <h1 style={{ textAlign: 'center' }}>Songbirds</h1>
+		        <Typography variant="h1" sx={titleStyle}>Songbirds</Typography>
 		        <Stack sx={{ width: '100%' }} spacing={4}>
 				  <Stepper alternativeLabel activeStep={currentStep} >
 					{steps.map((step, i) => (
