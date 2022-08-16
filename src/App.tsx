@@ -10,7 +10,9 @@ import {
     Step,
     Stepper,
     StepLabel } from '@mui/material'
-import VisibilityIcon from '@mui/icons-material/Visibility'
+import GroupsIcon from '@mui/icons-material/Groups'
+import MusicNoteIcon from '@mui/icons-material/MusicNote'
+import MapIcon from '@mui/icons-material/Map';
 import { SearchComponent } from './components/search'
 import { SongsComponent } from './components/songs'
 import { Artist, ItemList, Pager } from './models/'
@@ -23,7 +25,18 @@ import { useTranslation } from 'react-i18next'
 import { FirstStep } from './components'
 import { SongbirdsProvider, useSongbirdsContext } from './context'
 
-const steps = ['Search an artist', 'Your songs', 'Build your map!'];
+const steps = [
+	{
+		label: 'Search an artist',
+		icon: GroupsIcon
+	}, {
+		label: 'Your songs',
+		icon: MusicNoteIcon
+	}, {
+		label: 'Build your map!',
+		icon: MapIcon
+	}		
+];
 
 // TODO Fix prettierrc rules
 function App() {
@@ -43,9 +56,9 @@ function App() {
 		        <h1 style={{ textAlign: 'center' }}>Songbirds</h1>
 		        <Stack sx={{ width: '100%' }} spacing={4}>
 				  <Stepper alternativeLabel activeStep={currentStep} >
-					{steps.map((label, i) => (
-					  <Step key={label}>
-						<StepLabel sx={{ cursor: 'pointer' }} StepIconComponent={VisibilityIcon} onClick={() => setCurrentStep(i)}>{label}</StepLabel>
+					{steps.map((step, i) => (
+					  <Step key={step.label}>
+						<StepLabel sx={{ cursor: 'pointer' }} StepIconComponent={step.icon} onClick={() => setCurrentStep(i)}>{step.label}</StepLabel>
 					  </Step>
 					))}
 				  </Stepper>
