@@ -1,14 +1,16 @@
 import { useEffect } from 'react'
-import { Artist } from '../../models/Artist'
+import { useSongbirdsContext } from '../../context'
 
-type SongsProps = {
-	artist: Artist
-}
+export const Songs = () => {
 
-export const Songs = (props: SongsProps) => {
+	const { currentArtist } = useSongbirdsContext()
 
 	useEffect(() => {
-		fetch(`http://musicbrainz.org/ws/2/release/?fmt=json&artist=${props.artist.id}&limit=20&offset=0`)
+		if (!currentArtist) {
+			return
+		}
+	
+		fetch(`http://musicbrainz.org/ws/2/release/?fmt=json&artist=${currentArtist.id}&limit=20&offset=0`)
             .then((res: any) => res.json())
             .then((res) => {
             console.log((res.releases || res.recordings || ['undefined']).map((k: any) => k.title))

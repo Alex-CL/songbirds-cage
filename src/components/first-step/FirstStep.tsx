@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { 
 	TablePagination,
 	Button,	
@@ -16,10 +16,12 @@ import {
 } from '../table/types'
 import { AppTable, Field } from '../table'
 import { SearchComponent } from '../search'
+import { useSongbirdsContext } from '../../context'
 
 export const FirstStep = () => {
 	const { t } = useTranslation()
 
+	const {currentArtist, changeCurrentArtist} = useSongbirdsContext()
     const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [itemsPerPage, setItemsPerPage] = useState<number>(10)
     const [page, setPage] = useState<number>(0)
@@ -27,15 +29,10 @@ export const FirstStep = () => {
     const [items, setItems] = useState<Artist[]>([])
     const [pager, setPager] = useState<Pager>({limit: itemsPerPage, offset: page})
     
-    const [currentArtist, setCurrentArtist] = useState<Artist>()
-    
     useEffect(() => {
     	setIsLoading(true)
     	const current = items.find((i) => i.isCurrent)
-    	if (!current) {
-	    	return
-    	}
-    	setCurrentArtist(current)
+    	changeCurrentArtist && changeCurrentArtist(current)
     }, [items])
     
 	// TODO Review limit

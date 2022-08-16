@@ -21,15 +21,17 @@ import {
 import { AppTable, Field } from './components/table'
 import { useTranslation } from 'react-i18next'
 import { FirstStep } from './components'
+import { SongbirdsProvider, useSongbirdsContext } from './context'
 
 const steps = ['Search an artist', 'Your songs', 'Build your map!'];
 
 // TODO Fix prettierrc rules
 function App() {
     const { t } = useTranslation()
+    
+    const { currentArtist } = useSongbirdsContext()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [currentStep, setCurrentStep] = useState<number>(0)
-    const [currentArtist, setCurrentArtist] = useState<Artist | undefined>(undefined)
     
     const handleStepChange = (s: number) => {
     	 if (s < currentStep) {
@@ -39,30 +41,32 @@ function App() {
     
    // TODO Apply stepper
     return (
-        <Box sx={{
-        	width: '60%',
-        	margin: 'auto'
-        }}>
-            <h1 style={{ textAlign: 'center' }}>Songbirds</h1>
-            <Stack sx={{ width: '100%' }} spacing={4}>
-			  <Stepper alternativeLabel activeStep={currentStep} >
-				{steps.map((label, i) => (
-				  <Step key={label}>
-				    <StepLabel sx={{ cursor: 'pointer' }} StepIconComponent={VisibilityIcon} onClick={() => handleStepChange(i)}>{label}</StepLabel>
-				  </Step>
-				))}
-			  </Stepper>
-			</Stack>
-			{currentStep === 0 && (
-				<FirstStep />
-			)}
-			{currentStep === 1 && currentArtist && 
-				<Box>
-					<SongsComponent artist={currentArtist}/>
-					<Button variant="outlined" onClick={() => handleStepChange(0)}>{t('Back')}</Button>
-				</Box>
-			}
-		</Box>
+    	<SongbirdsProvider>
+		    <Box sx={{
+		    	width: '60%',
+		    	margin: 'auto'
+		    }}>
+		        <h1 style={{ textAlign: 'center' }}>Songbirds</h1>
+		        <Stack sx={{ width: '100%' }} spacing={4}>
+				  <Stepper alternativeLabel activeStep={currentStep} >
+					{steps.map((label, i) => (
+					  <Step key={label}>
+						<StepLabel sx={{ cursor: 'pointer' }} StepIconComponent={VisibilityIcon} onClick={() => handleStepChange(i)}>{label}</StepLabel>
+					  </Step>
+					))}
+				  </Stepper>
+				</Stack>
+				{currentStep === 0 && (
+					<FirstStep />
+				)}
+				{currentStep === 1 && currentArtist && 
+					<Box>
+						<SongsComponent/>
+						<Button variant="outlined" onClick={() => handleStepChange(0)}>{t('Back')}</Button>
+					</Box>
+				}
+			</Box>
+		</SongbirdsProvider>
     )
 }
 
