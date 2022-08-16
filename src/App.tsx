@@ -33,12 +33,6 @@ function App() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [currentStep, setCurrentStep] = useState<number>(0)
     
-    const handleStepChange = (s: number) => {
-    	 if (s < currentStep) {
-    	 	setCurrentStep(s)
-    	 }
-    }
-    
    // TODO Apply stepper
     return (
     	<SongbirdsProvider>
@@ -51,7 +45,7 @@ function App() {
 				  <Stepper alternativeLabel activeStep={currentStep} >
 					{steps.map((label, i) => (
 					  <Step key={label}>
-						<StepLabel sx={{ cursor: 'pointer' }} StepIconComponent={VisibilityIcon} onClick={() => handleStepChange(i)}>{label}</StepLabel>
+						<StepLabel sx={{ cursor: 'pointer' }} StepIconComponent={VisibilityIcon} onClick={() => setCurrentStep(i)}>{label}</StepLabel>
 					  </Step>
 					))}
 				  </Stepper>
@@ -59,10 +53,10 @@ function App() {
 				{currentStep === 0 && (
 					<FirstStep />
 				)}
-				{currentStep === 1 && currentArtist && 
+				{currentStep === 1 && 
 					<Box>
 						<SongsComponent/>
-						<Button variant="outlined" onClick={() => handleStepChange(0)}>{t('Back')}</Button>
+						<Button variant="outlined" onClick={() => setCurrentStep(0)}>{t('Back')}</Button>
 					</Box>
 				}
 			</Box>
