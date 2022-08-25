@@ -32,3 +32,6 @@ I don't own any credits for [Songbirds](https://johnbattle.itch.io/songbird), it
 Also, I don't own any credits for [MusicBrainzAPI](https://musicbrainz.org/doc/MusicBrainz_API).
 
 I've created this repo as a little development challenge.
+
+This project is **UNDER DEVELOPMENT**.
+
