@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { TextField, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { Artist, ItemList, Pager } from '../../models';
+import { MusicService } from '../../services'
 
 type SearchProps = {
 	passArtists: (il: ItemList<Artist>) => void,
 	pager: Pager
 }
+
+const musicService = new MusicService()
 
 export const Search = (props: SearchProps) => {
 
@@ -21,18 +24,8 @@ export const Search = (props: SearchProps) => {
     	if (!searchQuery) {
     		return
     	}
-        fetch(`http://musicbrainz.org/ws/2/artist/?limit=${props.pager.limit}&offset=${props.pager.offset}&fmt=json&query=artist:${searchQuery}%20AND%20type:group`)
-            .then((res: any) => res.json())
-            .then((res) => {
-		if (res.artists?.length) {
-			const itemList = {
-				items: res.artists.map((a: any) => new Artist({id: a.id, name: a.name, country: a.country, tags: a.tags?.map((t: any) => t.name)})),
-				count: res.count
-			}
-			props.passArtists(itemList)	
-		}
-	}
-	)
+        
+        musicService.getArtists(props.pager, searchQuery).then((il) => props.passArtists(il))
     }
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)
