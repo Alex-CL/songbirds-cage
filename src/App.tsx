@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
-import './App.css'
 import { 
 	TablePagination,
 	Typography,
@@ -14,16 +13,9 @@ import {
 import GroupsIcon from '@mui/icons-material/Groups'
 import MusicNoteIcon from '@mui/icons-material/MusicNote'
 import MapIcon from '@mui/icons-material/Map';
-import { SearchComponent } from './components/search'
-import { SongsComponent } from './components/songs'
-import { Artist, ItemList, Pager } from './models/'
-import {
-    Actions,
-    Sort,
-} from './components/table/types'
-import { AppTable, Field } from './components/table'
 import { useTranslation } from 'react-i18next'
-import { FirstStep } from './components'
+import { AppTable, Field, Actions, FirstStep, SearchComponent, SongsComponent } from './components'
+import { Artist, ItemList, Pager } from './models/'
 import { SongbirdsProvider } from './context'
 
 const steps = [
