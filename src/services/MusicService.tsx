@@ -1,8 +1,10 @@
-import { Pager, ItemList, emptyItemList, Artist } from '../models'
+import { Pager, ItemList, emptyItemList, Artist, Song } from '../models'
 
 interface IApi {
 	getArtists(p: Pager, query: string): Promise<ItemList<Artist>>
 }
+
+const MAX_SONGS = 10
 
 export class MusicService implements IApi {
 	private _api: string
@@ -24,5 +26,18 @@ export class MusicService implements IApi {
 				}
 				return emptyItemList<Artist>()
 			})
+	}
+	
+	getSongs(a: Artist): Promise<Song[]> {
+		const limit = 100
+		let offset = 0
+		const result = fetch(`${this._api}recording/?fmt=json&artist=${a.id}&limit=${limit}&offset=${offset}`)
+            .then((res: any) => res.json())
+            .then((res) => {
+            	// TODO Use property 'recording-count' to paginate
+				return []
+			})
+			
+		return result
 	}
 }

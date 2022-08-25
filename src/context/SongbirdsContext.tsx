@@ -21,8 +21,7 @@ export const useSongbirdsContext = () => useContext(SongbirdsContext)
 export const SongbirdsProvider = (props: ProviderProps) => {
 	const [currentArtist, setCurrentArtist] = useState<Artist | undefined>(defaultState.currentArtist)
 	
-	const changeCurrentArtist = (a: Artist | undefined) => { setCurrentArtist(a)
-	console.log(a)}
+	const changeCurrentArtist = (a: Artist | undefined) => setCurrentArtist(a)
 	
 	return (
 		<SongbirdsContext.Provider value={{ currentArtist, changeCurrentArtist }}>

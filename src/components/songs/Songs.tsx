@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
+import { MusicService } from '../../services'
 import { useSongbirdsContext } from '../../context'
+
+const musicService = new MusicService()
 
 export const Songs = () => {
 
@@ -10,11 +13,7 @@ export const Songs = () => {
 			return
 		}
 	
-		fetch(`http://musicbrainz.org/ws/2/release/?fmt=json&artist=${currentArtist.id}&limit=20&offset=0`)
-            .then((res: any) => res.json())
-            .then((res) => {
-            console.log((res.releases || res.recordings || ['undefined']).map((k: any) => k.title))
-        })
+		musicService.getSongs(currentArtist).then((s) => console.log(s))
 	}, [])
 
 	return (

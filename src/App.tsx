@@ -24,7 +24,7 @@ import {
 import { AppTable, Field } from './components/table'
 import { useTranslation } from 'react-i18next'
 import { FirstStep } from './components'
-import { SongbirdsProvider, useSongbirdsContext } from './context'
+import { SongbirdsProvider } from './context'
 
 const steps = [
 	{
@@ -43,7 +43,6 @@ const steps = [
 function App() {
     const { t } = useTranslation()
     
-    const { currentArtist } = useSongbirdsContext()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [currentStep, setCurrentStep] = useState<number>(0)
     
